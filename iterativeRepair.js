@@ -16,9 +16,11 @@ function _repairLoop(size) {
       for (var i = 0; i < board.length; i++) minimizeConflicts(board, i);
       numConflicts = totalConflicts(board);
       iterations += board.length;
+      render(board);
       if (numConflicts === 0) break;
     }
     totalIterations += iterations;
+    console.log("RESEED!!!")
   }
   return board;
 }
@@ -50,7 +52,7 @@ function totalConflicts(board) {
 function diagConflictCount(board) { // assumes all unique rows
   var downDiags = [];
   while (downDiags.length < board.length * 2) downDiags.push(false);
-  var upDiags = downDiags.clone();
+  var upDiags = downDiags.slice();
   var numConflicts = 0;
   for (var i = 0; i < board.length; i++) {
     var downDiag = i - board[i] + (board.length - 1);
@@ -75,7 +77,7 @@ function rowConflictCount(board) {
   var numConflicts = 0;
   while (row.length < board.length) row.push(false);
   for (var i = 0; i < board.length; i++) {
-    if (!row[board[i]]) {
+    if (row[board[i]]) {
       numConflicts++;
     } else {
       row[board[i]] = true;
@@ -111,11 +113,20 @@ function fisherYatesShuffle(arr) {
 
 function render(board) {
   console.log(board);
+  var rows = [];
   for (var i = 0; i < board.length; i++) {
     var row = [];
     for (var j = 0; j < board.length; j++) {
       row.push(board[i] === j ? "Q" : ".");
     }
-    console.log(row.join(" "));
+    rows.push(row);
   }
+  for (i = 0; i < rows.length; i++) {
+    for (var k = 0; k < rows.length; k++) {
+      var temp = rows[i][k];
+      rows[i][k] = rows[k][i];
+      rows[k][i] = temp;
+    }
+  }
+  rows.forEach(function (row) { console.log(row.join(" ")); });
 }
