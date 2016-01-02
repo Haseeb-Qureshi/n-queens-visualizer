@@ -7,13 +7,20 @@ function iterativeRepair(size) {
 
 function _repairLoop(size) {
   var numConflicts = Number.POSITIVE_INFINITY;
+  var totalIterations = 0;
+  var board;
   while (numConflicts > 0) {
     var iterations = 0;
-    var board = generateRandomBoard(size);
+    board = generateRandomBoard(size);
     while (iterations < 30) {
-      var numConflicts = diagConflictCount(size);
+      for (var i = 0; i < board.length; i++) minimizeConflicts(board, i);
+      numConflicts = diagConflictCount(board) + rowConflictCount(board);
+      iterations += board.length;
+      if (numConflicts === 0) break;
     }
+    totalIterations += iterations;
   }
+  return board;
 }
 
 function generateRandomBoard(size) {
@@ -22,11 +29,45 @@ function generateRandomBoard(size) {
   return fisherYatesShuffle(board);
 }
 
-function diagConflictCount(board) { // assumes all unique rows
-  var leftDiagConflicts = [];
-  while (leftDiagConflicts.length < board.length * 2) leftDiagConflicts.push(0);
-  var rightDiagConflicts = leftDiagConflicts.clone();
+function minimizeConflicts(board, col) {
   
+};
+
+function diagConflictCount(board) { // assumes all unique rows
+  var downDiags = [];
+  while (downDiags.length < board.length * 2) downDiags.push(false);
+  var upDiags = downDiags.clone();
+  var numConflicts = 0;
+  for (var i = 0; i < board.length; i++) {
+    var downDiag = i - board[i] + (board.length - 1);
+    if (!downDiags[downDiag]) {
+      downDiags[downDiag] = true;
+    } else {
+      numConflicts++;
+    }
+
+    var upDiag = i + board[i];
+    if (!upDiags[upDiag]) {
+      upDiags[upDiag] = true;
+    } else {
+      numConflicts++;
+    }
+  }
+  return numConflicts;
+}
+
+function rowConflictCount(board) {
+  var row = [];
+  var numConflicts = 0;
+  while (row.length < board.length) row.push(false);
+  for (var i = 0; i < board.length; i++) {
+    if (!row[board[i]]) {
+      numConflicts++;
+    } else {
+      row[board[i]] = true;
+    }
+  }
+  return numConflicts;
 }
 
 function pointConflictCount(board, x, y) {
