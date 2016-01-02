@@ -14,7 +14,7 @@ function _repairLoop(size) {
     board = generateRandomBoard(size);
     while (iterations < 30) {
       for (var i = 0; i < board.length; i++) minimizeConflicts(board, i);
-      numConflicts = diagConflictCount(board) + rowConflictCount(board);
+      numConflicts = totalConflicts(board);
       iterations += board.length;
       if (numConflicts === 0) break;
     }
@@ -30,8 +30,22 @@ function generateRandomBoard(size) {
 }
 
 function minimizeConflicts(board, col) {
-  
-};
+  var minConflicts = Number.POSITIVE_INFINITY;
+  var minRow;
+  for (var row = 0; row < board.length; row++) {
+    board[col] = row;
+    var conflicts = totalConflicts(board);
+    if (conflicts < minConflicts) {
+      minConflicts = conflicts;
+      minRow = row;
+    }
+  }
+  board[col] = minRow;
+}
+
+function totalConflicts(board) {
+  return diagConflictCount(board) + rowConflictCount(board);
+}
 
 function diagConflictCount(board) { // assumes all unique rows
   var downDiags = [];
@@ -105,11 +119,3 @@ function render(board) {
     console.log(row.join(" "));
   }
 }
-
-0, 0
-2, 2
-3, 1
-
-x1 - y1 == x2 - y2
-||
-x1 + y1 == x2 + y2
