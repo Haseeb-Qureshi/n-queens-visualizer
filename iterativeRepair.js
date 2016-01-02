@@ -20,7 +20,6 @@ function _repairLoop(size) {
       if (numConflicts === 0) break;
     }
     totalIterations += iterations;
-    console.log("RESEED!!!")
   }
   return board;
 }
@@ -86,21 +85,6 @@ function rowConflictCount(board) {
   return numConflicts;
 }
 
-function pointConflictCount(board, x, y) {
-  var conflicts = 0;
-  for (var i = 0; i < board.length; i++) {
-    // columns always unique!
-    // look at rows
-    if (board[i] === x && i !== x) conflicts++; // double check this logic... this is so that a thing doesn't conflict with itself
-    // i = column
-    // board[i] = row
-
-    // look at diags
-    if (x - y === board[i] - i || x + y === board[i] + i) conflicts++;
-  }
-  return conflicts;
-}
-
 function fisherYatesShuffle(arr) {
   for (var i = 0; i < arr.length; i++) {
     var j = Math.floor(Math.random() * (arr.length - i) + i);
@@ -121,12 +105,7 @@ function render(board) {
     }
     rows.push(row);
   }
-  for (i = 0; i < rows.length; i++) {
-    for (var k = 0; k < rows.length; k++) {
-      var temp = rows[i][k];
-      rows[i][k] = rows[k][i];
-      rows[k][i] = temp;
-    }
-  }
   rows.forEach(function (row) { console.log(row.join(" ")); });
 }
+
+iterativeRepair(12);
