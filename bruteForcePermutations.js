@@ -5,9 +5,31 @@ function bruteForcePermutations(size) {
   for (var i = 0; i < size; i++) board.push(i);
   for (var j = 0; j < factorial(size); j++) {
     board = nextPerm(board);
-    if (noConflictsOn(board)) return board;
+    if (noDiagConflicts(board)) return board;
   }
   return false;
+}
+
+function noDiagConflicts(board) {
+  var downDiags = [];
+  while (downDiags.length < board.length * 2) downDiags.push(false);
+  var upDiags = downDiags.slice();
+  for (var i = 0; i < board.length; i++) {
+    var downDiag = i - board[i] + (board.length - 1);
+    if (!downDiags[downDiag]) {
+      downDiags[downDiag] = true;
+    } else {
+      return false;
+    }
+
+    var upDiag = i + board[i];
+    if (!upDiags[upDiag]) {
+      upDiags[upDiag] = true;
+    } else {
+      return false;
+    }
+  }
+  return true;
 }
 
 function factorial(size) {
@@ -23,7 +45,7 @@ function nextPerm(perm) {
 
   perm = perm.slice();
   swap(perm, swap1, swap2);
-  return perm.slice(0, swap1 + 1).concat(sortSlice(perm, swap1 + 1));
+  return perm.slice(0, swap1 + 1).concat(reverseSlice(perm, swap1 + 1));
 }
 
 function swapPoint(arr) {
@@ -49,8 +71,6 @@ function swap(arr, x, y) {
   arr[y] = temp;
 }
 
-function sortSlice(arr, idx) {
-  return arr.slice(idx || 0, arr.length).sort(function (el1, el2) {
-    return el1 > el2 ? 1 : -1;
-  });
+function reverseSlice(arr, idx) {
+  return arr.slice(idx, arr.length).reverse();
 }
