@@ -20,6 +20,8 @@ function nextPerm(perm) {
   var swap1 = swapPoint(perm);
   if (swap1 === -1) return perm;
   var swap2 = smallestGreaterOnRight(perm, swap1);
+
+  perm = perm.slice();
   swap(perm, swap1, swap2);
   return perm.slice(0, swap1 + 1).concat(sortSlice(perm, swap1 + 1));
 }
