@@ -11,9 +11,9 @@ function bruteForcePermutations(size) {
 }
 
 function noDiagConflicts(board) {
-  var downDiags = new Array(board.length * 2).fill(false);
-  var upDiags = new Array(board.length * 2).fill(false);
-
+  var downDiags = [];
+  while (downDiags.length < board.length * 2) downDiags.push(false);
+  var upDiags = downDiags.slice();
   for (var i = 0; i < board.length; i++) {
     var downDiag = i - board[i] + (board.length - 1);
     if (!downDiags[downDiag]) {
@@ -58,7 +58,7 @@ function swapPoint(arr) {
 function smallestGreaterOnRight(arr, point) {
   var minIdx = point + 1;
   for (var i = point + 1; i < arr.length; i++) {
-    if (arr[i] > arr[point] && arr[i] < arr[minIdx]) {
+    if ( arr[i] > arr[point] && arr[i] < arr[minIdx]) {
       minIdx = i;
     }
   }
@@ -74,3 +74,16 @@ function swap(arr, x, y) {
 function reverseSlice(arr, idx) {
   return arr.slice(idx, arr.length).reverse();
 }
+
+function render(board) {
+  console.log(board);
+  for (var i = 0; i < board.length; i++) {
+    var row = [];
+    for (var j = 0; j < board.length; j++) {
+      row.push(board[i] === j ? "Q" : ".");
+    }
+    console.log(row.join(" "));
+  }
+}
+
+render(bruteForcePermutations(4));
