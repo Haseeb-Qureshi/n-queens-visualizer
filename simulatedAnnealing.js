@@ -1,10 +1,10 @@
 var currentBoard = initialBoard(8);
-var coolingFactor = 0.0,
-    stabilizingFactor = 0.0,
+var coolingFactor = 0.05,
+    stabilizingFactor = 1.005,
     freezingTemp = 0.0,
-    currentTemp = 0.0,
+    currentTemp = 35.0,
     currentConflicts = Number.POSITIVE_INFINITY;
-    currentStabilizer = 0.0;
+    currentStabilizer = 35.0;
 
 function probabilityFn(temp, delta) {
   if (delta < 0) return true;
@@ -31,7 +31,9 @@ function step() {
       }
     }
     currentTemp -= coolingFactor;
-    stabilizer *= stabilizingFactor;
+    currentStabilizer *= stabilizingFactor;
+    console.log("Current temperature: " + currentTemp);
+    console.log("Number of conflicts: " + conflictCount(currentBoard));
     return false;
   }
   currentTemp = freezingTemp;
@@ -65,7 +67,7 @@ function conflictCount(board) { // assumes all unique rows
 function initialBoard(size) {
   var board = [];
   for (var i = 0; i < size; i++) board.push(i);
-  fisherYatesShuffle(board);
+  return fisherYatesShuffle(board);
 }
 
 function fisherYatesShuffle(arr) {
@@ -95,8 +97,8 @@ function uniq(array) {
 
 function swappedBoard(board, indices) {
   var temp = board[indices[0]];
-  board[indices[1]] = board[indices[0]];
-  board[indices[0]] = temp;
+  board[indices[0]] = board[indices[1]];
+  board[indices[1]] = temp;
   return board;
 }
 
@@ -112,9 +114,11 @@ function render(board) {
 }
 
 function takeSteps() {
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 1000; i++) {
     step();
     render(currentBoard);
+    if (currentConflicts === 0) break;
+    console.log("Count: " + i);
   }
 }
 
