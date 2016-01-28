@@ -1,0 +1,9 @@
+.board {
+  width: 50vw;
+  height: 50vh;
+}
+
+.knight {
+  font-size: 25px;
+  padding: 10px;
+}
