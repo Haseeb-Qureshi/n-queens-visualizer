@@ -12,7 +12,6 @@ var Square = React.createClass({
 
     return <div style={{
       backgroundColor: fill,
-      color: '#CCC',
       width: "12.5%",
       height: "12.5%",
       float: "left",

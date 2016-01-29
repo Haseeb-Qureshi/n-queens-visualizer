@@ -3,7 +3,14 @@
   height: 50vh;
 }
 
-.knight {
+.queen {
   font-size: 25px;
+  color: #AAA;
   padding: 10px;
+  width: 100%,
+  height: 100%,
+}
+
+.queen small {
+  font-size: 10px;
 }

@@ -1,11 +1,11 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var Square = require('./square');
-var Knight = require('./knight');
+var Queen = require('./queen');
 
 var Board = React.createClass({
   propTypes: {
-    knightPosition: PropTypes.arrayOf(
+    queenPosition: PropTypes.arrayOf(
       PropTypes.number.isRequired
     ).isRequired
   },
@@ -15,10 +15,10 @@ var Board = React.createClass({
     var y = Math.floor(i / 8);
     var black = (x + y) % 2 === 1;
 
-    var knightX = this.props.knightPosition[0];
-    var knightY = this.props.knightPosition[1];
-    var piece = (x === knightX && y === knightY) ?
-      <Knight /> :
+    var queenX = this.props.queenPosition[0];
+    var queenY = this.props.queenPosition[1];
+    var piece = (x === queenX && y === queenY) ?
+      <Queen /> :
       null;
 
     return (
