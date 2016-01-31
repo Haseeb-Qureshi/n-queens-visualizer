@@ -3,6 +3,20 @@
   height: 50vh;
 }
 
+.square {
+  width: 12.5%;
+  height: 12.5%;
+  float: left;
+}
+
+.black {
+  background-color: 'black';
+}
+
+.white {
+  background-color: 'white';
+}
+
 .queen {
   font-size: 25px;
   color: #AAA;

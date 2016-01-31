@@ -1,31 +1,39 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
-var Square = require('./square');
-var Queen = require('./queen');
+var BoardStore = require('../stores/board-store');
+var EmptySquare = require('./empty-square');
+var QueenSquare = require('./queen-square');
+
+function getBoardState() {
+  return {
+    board: BoardStore.getBoard()
+  };
+}
 
 var Board = React.createClass({
-  propTypes: {
-    queenPosition: PropTypes.arrayOf(
-      PropTypes.number.isRequired
-    ).isRequired
+  onChange: function () {
+    this.setState(getBoardState());
+  },
+
+  getInitialState: function () {
+    return getStateFromStore();
+  },
+
+  componentDidMount: function () {
+    BoardStore.addChangeListener(this.onChange);
+  },
+
+  componentWillUnmount: function () {
+    BoardStore.removeChangeListener(this.onChange);
   },
 
   renderSquare: function (i) {
     var x = i % 8;
     var y = Math.floor(i / 8);
     var black = (x + y) % 2 === 1;
+    var board = this.state.board;
 
-    var queenX = this.props.queenPosition[0];
-    var queenY = this.props.queenPosition[1];
-    var piece = (x === queenX && y === queenY) ?
-      <Queen /> :
-      null;
-
-    return (
-        <Square black={black} key={i} boardSize={this.props.boardSize}>
-          {piece}
-        </Square>
-    );
+    return board[x] === y ? <QueenSquare /> : <EmptySquare />
   },
 
   render: function () {
