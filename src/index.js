@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./App');
-var Board = require('./components/board');
+var Container = require('./components/container');
 
 
 ReactDOM.render(
-  <Board/>,
+  <Container />,
   document.getElementById('root'));

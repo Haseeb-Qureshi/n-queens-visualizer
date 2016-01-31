@@ -34,7 +34,7 @@ var Board = React.createClass({
     var board = this.state.board;
 
     return board[x] === y ?
-      <QueenSquare key={i} black={black} queenId={x}/> : 
+      <QueenSquare key={i} black={black} queenId={x}/> :
       <EmptySquare key={i} black={black}/>
   },
 
