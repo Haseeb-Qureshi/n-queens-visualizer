@@ -29,8 +29,6 @@ var BoardStore = assign({}, EventEmitter.prototype, {
   },
 });
 
-window.APPDISPATCHER = AppDispatcher;
-
 AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "MOVE_QUEEN":

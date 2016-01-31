@@ -14,9 +14,10 @@ module.exports = {
     });
   },
 
-  runScript: function () {
+  runScript: function (scriptName) {
     AppDispatcher.dispatch({
-      actionType: "RUN_SCRIPT"
+      actionType: "RUN_SCRIPT",
+      data: scriptName
     });
   },
 
@@ -31,6 +32,12 @@ module.exports = {
     AppDispatcher.dispatch({
       actionType: "CHANGE_SIZE",
       data: size
+    });
+  },
+
+  finish: function () {
+    AppDispatcher.dispatch({
+      actionType: "FINISH"
     });
   }
 };
