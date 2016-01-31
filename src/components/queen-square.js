@@ -4,9 +4,11 @@ var PropTypes = React.PropTypes;
 var QueenSquare = React.createClass({
   propTypes: {
     queenId: PropTypes.number,
+    black: PropTypes.bool,
   },
 
   render: function () {
+    var fill = this.props.black ? "black" : "white";
     return (
       <div className={"square " + fill}>
         <div className="queen">

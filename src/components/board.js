@@ -16,7 +16,7 @@ var Board = React.createClass({
   },
 
   getInitialState: function () {
-    return getStateFromStore();
+    return getBoardState();
   },
 
   componentDidMount: function () {
@@ -33,7 +33,9 @@ var Board = React.createClass({
     var black = (x + y) % 2 === 1;
     var board = this.state.board;
 
-    return board[x] === y ? <QueenSquare /> : <EmptySquare />
+    return board[x] === y ?
+      <QueenSquare key={i} black={black} queenId={x}/> : 
+      <EmptySquare key={i} black={black}/>
   },
 
   render: function () {
