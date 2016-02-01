@@ -20,20 +20,22 @@ var BoardStore = assign({}, EventEmitter.prototype, {
     this.removeListener('change', callback);
   },
 
-  _moveQueen: function (queenId, toRow) {
-    board[queenId] = toRow;
-  },
-
   getBoard: function () {
     return board;
   },
+
+  _moveQueen: function (action) {
+    var queenId = action.data[0], toRow = action.data[1];
+    board[queenId] = toRow;
+    this.emitChange();
+  }
 });
 
-AppDispatcher.register(function (action) {
+
+BoardStore.dispatchToken = AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "MOVE_QUEEN":
-      BoardStore._moveQueen(action.data[0], action.data[1]);
-      BoardStore.emitChange();
+      BoardStore._moveQueen(action);
       break;
     default:
   }

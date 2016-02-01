@@ -2,6 +2,7 @@
 "use strict";
 
 var ActionCreator = require('../actions/action-creator');
+var AppDispatcher = require('../dispatcher/app-dispatcher');
 
 function backtrackingQueens(size) {
   var board = new Array(size);
@@ -15,6 +16,7 @@ function dfs(board, currentQueen, size) {
   for (var row = 0; row < size; row++) {
     board[currentQueen] = row; // set that queen and check if it's valid
     ActionCreator.moveQueen(currentQueen, row);
+    // setTimeout(ActionCreator.moveQueen.bind(ActionCreator, currentQueen, row), 50);
     if (validPlacement(board, currentQueen)) {
       var done = dfs(board, currentQueen + 1, size); // if it works, go deeper
       if (done) return true;

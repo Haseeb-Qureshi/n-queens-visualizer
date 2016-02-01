@@ -1,43 +1,44 @@
 var AppDispatcher = require('../dispatcher/app-dispatcher');
+var deferFunc = require('../utils/util').deferFunc;
 
 module.exports = {
   moveQueen: function (queenId, toRow) {
-    AppDispatcher.dispatch({
+    deferFunc(AppDispatcher.dispatch.bind(AppDispatcher, {
       actionType: "MOVE_QUEEN",
       data: [queenId, toRow]
-    });
+    }));
   },
 
   iterate: function () {
-    AppDispatcher.dispatch({
+    deferFunc(AppDispatcher.dispatch.bind(AppDispatcher, {
       actionType: "ITERATE"
-    });
+    }));
   },
 
   runScript: function (scriptName) {
-    AppDispatcher.dispatch({
+    deferFunc(AppDispatcher.dispatch.bind(AppDispatcher, {
       actionType: "RUN_SCRIPT",
-      data: scriptName
-    });
+      scriptName: scriptName
+    }));
   },
 
   changeSpeed: function (speed) {
-    AppDispatcher.dispatch({
+    deferFunc(AppDispatcher.dispatch.bind(AppDispatcher, {
       actionType: "CHANGE_SPEED",
-      data: speed
-    });
+      newSpeed: speed
+    }));
   },
 
   changeSize: function (size) {
-    AppDispatcher.dispatch({
+    deferFunc(AppDispatcher.dispatch.bind(AppDispatcher, {
       actionType: "CHANGE_SIZE",
-      data: size
-    });
+      newSize: size
+    }));
   },
 
   finish: function () {
-    AppDispatcher.dispatch({
+    deferFunc(AppDispatcher.dispatch.bind(AppDispatcher, {
       actionType: "FINISH"
-    });
+    }));
   }
 };

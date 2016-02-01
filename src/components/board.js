@@ -10,7 +10,14 @@ function getBoardState() {
   };
 }
 
+function sleep(delay) {
+  var start = new Date().getTime();
+  while (new Date().getTime() < start + delay);
+}
+
 var Board = React.createClass({
+  counter: 0,
+
   onChange: function () {
     this.setState(getBoardState());
   },
@@ -27,6 +34,11 @@ var Board = React.createClass({
     BoardStore.removeChangeListener(this.onChange);
   },
 
+  componentWillUpdate: function () {
+    this.counter += 1;
+    console.log("hello");
+  },
+
   renderSquare: function (i) {
     var x = i % 8;
     var y = Math.floor(i / 8);
@@ -39,7 +51,6 @@ var Board = React.createClass({
   },
 
   render: function () {
-    console.log("re-render!");
     var squares = [];
     for (let i = 0; i < 64; i++) {
       squares.push(this.renderSquare(i));
