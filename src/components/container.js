@@ -13,7 +13,7 @@ var Container = React.createClass({
     ];
 
     return (
-      <div class="container">
+      <div className="container">
         <Board />
         <AlgoSelector algos={algos} />
       </div>

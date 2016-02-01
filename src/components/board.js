@@ -39,6 +39,7 @@ var Board = React.createClass({
   },
 
   render: function () {
+    console.log("re-render!");
     var squares = [];
     for (let i = 0; i < 64; i++) {
       squares.push(this.renderSquare(i));

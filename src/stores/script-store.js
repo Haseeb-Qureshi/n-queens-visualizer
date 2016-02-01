@@ -1,10 +1,8 @@
 var AppDispatcher = require('../dispatcher/app-dispatcher');
-
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 var script = null;
-
 var ScriptStore = assign({}, EventEmitter.prototype, {
   emitChange: function () {
     this.emit('change');
@@ -19,8 +17,17 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
   },
 
   _runScript: function (scriptName) {
-    script = require('../scripts/' + formatScriptName(scriptName));
+    script = require('../scripts/' + this._formatScriptName(scriptName));
     script.run();
+  },
+
+  _formatScriptName: function (text) {
+    function capitalize(str) { return str[0].toUpperCase() + str.slice(1); }
+
+    var textPieces = text.split(" ");
+    return textPieces.map(function (piece, i) {
+      return i === 0 ? piece.toLowerCase() : capitalize(piece);
+    }).join("");
   },
 
   getScript: function () {
@@ -28,20 +35,11 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
   },
 });
 
-function formatScriptName(text) {
-  function capitalize(str) { return str[0].toUpperCase() + str.slice(1); }
-
-  var textPieces = text.split(" ");
-  return textPieces.map(function (piece, i) {
-    return i === 0 ? piece.toLowerCase() : capitalize(piece);
-  }).join("");
-}
-
 AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "RUN_SCRIPT":
-      BoardStore._runScript(action.data);
-      BoardStore.emitChange();
+      ScriptStore._runScript(action.data);
+      ScriptStore.emitChange();
       break;
     default:
   }

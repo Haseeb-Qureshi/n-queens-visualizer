@@ -1,12 +1,12 @@
 /*jslint node: true */
 "use strict";
 
-var actionCreator = require('../actions/action-creator');
+var ActionCreator = require('../actions/action-creator');
 
 function backtrackingQueens(size) {
   var board = new Array(size);
   var solution = dfs(board, 0, size); // start one queen at a time and satisfy constraints
-  if (solution) actionCreator.finish();
+  if (solution) ActionCreator.finish();
 }
 
 function dfs(board, currentQueen, size) {
@@ -14,13 +14,13 @@ function dfs(board, currentQueen, size) {
 
   for (var row = 0; row < size; row++) {
     board[currentQueen] = row; // set that queen and check if it's valid
-    actionCreator.moveQueen(currentQueen, row);
+    ActionCreator.moveQueen(currentQueen, row);
     if (validPlacement(board, currentQueen)) {
       var done = dfs(board, currentQueen + 1, size); // if it works, go deeper
       if (done) return true;
     }
   }
-  actionCreator.moveQueen(currentQueen, null);
+  ActionCreator.moveQueen(currentQueen, null);
 }
 
 function validPlacement(board, currentQueen) {
@@ -31,7 +31,7 @@ function validPlacement(board, currentQueen) {
 }
 
 function conflictsWith(board, x1, x2) {
-  actionCreator.iterate();
+  ActionCreator.iterate();
   var y1 = board[x1], y2 = board[x2];
   return y1 === y2 || Math.abs(x2 - x1) === Math.abs(y2 - y1); // row or diags intersect
 }
