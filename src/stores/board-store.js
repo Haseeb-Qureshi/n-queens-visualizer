@@ -50,6 +50,7 @@ var BoardStore = assign({}, EventEmitter.prototype, {
   _resetBoard: function () {
     iterations = 0;
     board = new Array(n);
+    BoardStore.emitChange();
   }
 });
 
