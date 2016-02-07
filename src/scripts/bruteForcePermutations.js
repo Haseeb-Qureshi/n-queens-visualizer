@@ -9,7 +9,10 @@ function bruteForcePermutations(size) {
   for (var j = 0; j < factorial(size); j++) {
     board = nextPerm(board);
     MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board));
-    if (noDiagConflicts(board)) return board;
+    if (noDiagConflicts(board)) {
+      MoveQueue.enqueue(ActionCreator.finish);
+      return board;
+    }
   }
   return false;
 }
@@ -19,8 +22,6 @@ function noDiagConflicts(board) {
   while (downDiags.length < board.length * 2) downDiags.push(false);
   var upDiags = downDiags.slice();
   for (var i = 0; i < board.length; i++) {
-    MoveQueue.enqueue(ActionCreator.iterate);
-
     var downDiag = i - board[i] + (board.length - 1);
     if (!downDiags[downDiag]) {
       downDiags[downDiag] = true;

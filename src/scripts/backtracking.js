@@ -15,7 +15,6 @@ function dfs(board, currentQueen, size) {
   for (var row = 0; row < size; row++) {
     board[currentQueen] = row; // set that queen and check if it's valid
     MoveQueue.enqueue(ActionCreator.moveQueen.bind(null, currentQueen, row));
-    // setTimeout(ActionCreator.moveQueen.bind(ActionCreator, currentQueen, row), 50);
     if (validPlacement(board, currentQueen)) {
       var done = dfs(board, currentQueen + 1, size); // if it works, go deeper
       if (done) return true;
@@ -32,7 +31,6 @@ function validPlacement(board, currentQueen) {
 }
 
 function conflictsWith(board, x1, x2) {
-  MoveQueue.enqueue(ActionCreator.iterate);
   var y1 = board[x1], y2 = board[x2];
   return y1 === y2 || Math.abs(x2 - x1) === Math.abs(y2 - y1); // row or diags intersect
 }

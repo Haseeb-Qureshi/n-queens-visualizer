@@ -16,12 +16,6 @@ module.exports = {
     });
   },
 
-  iterate: function () {
-    AppDispatcher.dispatch({
-      actionType: "ITERATE"
-    });
-  },
-
   runScript: function (scriptName) {
     AppDispatcher.dispatch({
       actionType: "RUN_SCRIPT",

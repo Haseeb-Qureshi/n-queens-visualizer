@@ -1,8 +1,12 @@
 /*jslint node: true */
 "use strict";
+var ActionCreator = require('../actions/action-creator');
+var MoveQueue = require('../queue/move-queue');
+
 function iterativeRepair(size) {
   var solution = _repairLoop(size);
-  render(solution);
+  MoveQueue.enqueue(ActionCreator.finish);
+  return solution;
 }
 
 function _repairLoop(size) {
@@ -12,11 +16,11 @@ function _repairLoop(size) {
   while (numConflicts > 0) {
     var iterations = 0;
     board = generateRandomBoard(size);
+    MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
     while (iterations < 30) {
       for (var i = 0; i < board.length; i++) minimizeConflicts(board, i);
       numConflicts = totalConflicts(board);
       iterations += board.length;
-      render(board);
       if (numConflicts === 0) break;
     }
     totalIterations += iterations;
@@ -42,6 +46,7 @@ function minimizeConflicts(board, col) {
     }
   }
   board[col] = minRow;
+  MoveQueue.enqueue(ActionCreator.moveQueen.bind(null, col, minRow));
 }
 
 function totalConflicts(board) {
@@ -95,17 +100,21 @@ function fisherYatesShuffle(arr) {
   return arr;
 }
 
-function render(board) {
-  console.log(board);
-  var rows = [];
-  for (var i = 0; i < board.length; i++) {
-    var row = [];
-    for (var j = 0; j < board.length; j++) {
-      row.push(board[i] === j ? "Q" : ".");
-    }
-    rows.push(row);
-  }
-  rows.forEach(function (row) { console.log(row.join(" ")); });
-}
+// function render(board) {
+//   console.log(board);
+//   var rows = [];
+//   for (var i = 0; i < board.length; i++) {
+//     var row = [];
+//     for (var j = 0; j < board.length; j++) {
+//       row.push(board[i] === j ? "Q" : ".");
+//     }
+//     rows.push(row);
+//   }
+//   rows.forEach(function (row) { console.log(row.join(" ")); });
+// }
 
-iterativeRepair(12);
+module.exports = {
+  run: function (n) {
+    iterativeRepair(n || 8);
+  }
+};
