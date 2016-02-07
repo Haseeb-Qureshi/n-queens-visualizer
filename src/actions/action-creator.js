@@ -32,7 +32,7 @@ module.exports = {
 
   updateTemp: function (newTemp) {
     AppDispatcher.dispatch({
-      actionTyoe: "UPDATE_TEMP",
+      actionType: "UPDATE_TEMP",
       newTemp: newTemp
     });
   },

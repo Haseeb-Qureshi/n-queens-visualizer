@@ -15,5 +15,6 @@ Backlog of features:
 * Highlight attack paths
 * Animate movement of queens
 * Show animations for every reset
+* Make resizable from 4-20 N
 * Show text explaining each search method
 * Guided tour through sequence of possible search strategies

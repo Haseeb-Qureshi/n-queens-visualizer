@@ -28,7 +28,6 @@ var AlgoPanel = React.createClass({
   },
 
   render: function () {
-    console.log(this.state.script);
     return (
       <div className="algo-panel">
         <AlgoSelector algos={this.props.algos} />

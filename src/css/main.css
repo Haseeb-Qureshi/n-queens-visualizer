@@ -48,13 +48,20 @@ ul.buttons {
   overflow: hidden;
 }
 
-div.iterations {
+div.iterations, div.temp {
   padding: 10px 35px;
-  font-size: 30px;
   margin-left: 10%;
   color: #777;
   text-align: center;
   font-family: "Oxygen Mono";
+}
+
+div.iterations {
+  font-size: 30px;
+}
+
+div.temp {
+  font-size: 15px;
 }
 
 .board {

@@ -52,7 +52,6 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
   },
 
   getScriptName: function () {
-    window.scriptName = lastScriptName
     return lastScriptName;
   },
 

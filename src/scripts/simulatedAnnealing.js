@@ -51,8 +51,6 @@ function step() {
     currentTemp -= coolingFactor;
     currentStabilizer *= stabilizingFactor;
     ActionQueue.enqueue(ActionCreator.updateTemp.bind(null, currentTemp));
-    // console.log("Current temperature: " + currentTemp);
-    // console.log("Number of conflicts: " + conflictCount(currentBoard));
     return false;
   }
   currentTemp = freezingTemp;
@@ -127,6 +125,7 @@ function swappedBoard(board, indices) {
 
 function simulatedAnnealing(n) {
   initializeSettings();
+  ActionQueue.enqueue(ActionCreator.updateTemp.bind(null, currentTemp));
   currentBoard = initialBoard(n);
   ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice(), n));
   var iterations = 0;
