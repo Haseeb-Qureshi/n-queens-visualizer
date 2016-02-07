@@ -17,7 +17,7 @@ function initializeSettings() {
     freezingTemp = 0.0;
     currentTemp = 10.0;
     currentConflicts = Number.POSITIVE_INFINITY;
-    currentStabilizer = 35.0;
+    currentStabilizer = 9.0;
 }
 
 function probabilityFn(temp, delta) {
@@ -34,6 +34,7 @@ function step() {
   if (currentTemp > freezingTemp) {
     for (var i = 0; i < currentStabilizer; i++) {
       var neighborTuple = generateNeighbor(currentBoard);
+
       var neighborBoard = neighborTuple[0], neighborSwaps = neighborTuple[1];
       var numConflicts = conflictCount(currentBoard);
       var neighborConflicts = conflictCount(neighborBoard);
@@ -41,9 +42,9 @@ function step() {
       var valueDelta = neighborConflicts - numConflicts;
 
       if (probabilityFn(currentTemp, valueDelta)) {
+        MoveQueue.enqueue(ActionCreator.swapQueens.bind(null, neighborSwaps));
         currentBoard = neighborBoard;
         currentConflicts = neighborConflicts;
-        MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice()));
       }
     }
     currentTemp -= coolingFactor;
@@ -123,12 +124,12 @@ function simulatedAnnealing(n) {
   currentBoard = initialBoard(n);
   MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice()));
   var iterations = 0;
-  while (currentTemp > freezingTemp + 0.01) {
-    step();
+  while (currentTemp > freezingTemp) {
     iterations++;
-    if (currentConflicts === 0) {console.log(iterations); return; }
+    step();
+    if (currentConflicts === 0) return MoveQueue.enqueue(ActionCreator.finish);
   }
-  console.log("Failed to find within " + iterations + " iterations.");
+  MoveQueue.enqueue(ActionCreator.failure.bind(null, iterations));
 }
 
 module.exports = {

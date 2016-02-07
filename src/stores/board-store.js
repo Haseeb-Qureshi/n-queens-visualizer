@@ -34,11 +34,17 @@ var BoardStore = assign({}, EventEmitter.prototype, {
     BoardStore.emitChange();
   },
 
-  _moveQueen: function (action) {
-    var queenId = action.data[0], toRow = action.data[1];
+  _moveQueen: function (queenId, toRow) {
     board[queenId] = toRow;
-    iterations += 1;
+    iterations++;
     BoardStore.emitChange();
+  },
+
+  _swapQueens: function (indices) {
+    var i1 = indices[0], i2 = indices[1];
+    var firstRow = board[i1];
+    this._moveQueen(i1, board[i2]);
+    this._moveQueen(i2, firstRow);
   },
 
   _resetBoard: function () {
@@ -52,11 +58,18 @@ BoardStore.dispatchToken = AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "MOVE_QUEEN":
       AppDispatcher.waitFor([ScriptStore.dispatchToken]);
-      BoardStore._moveQueen(action);
+      BoardStore._moveQueen(action.data[0], action.data[1]);
       break;
     case "UPDATE_BOARD":
       AppDispatcher.waitFor([ScriptStore.dispatchToken]);
       BoardStore._updateBoard(action.data);
+      break;
+    case "SWAP_QUEENS":
+      AppDispatcher.waitFor([ScriptStore.dispatchToken]);
+      BoardStore._swapQueens(action.data);
+      break;
+    case "FAILURE":
+      console.log("failed after " + action.data + " iterations");
       break;
     case "RUN_SCRIPT":
       BoardStore._resetBoard();

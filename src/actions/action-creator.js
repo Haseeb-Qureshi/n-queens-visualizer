@@ -16,6 +16,13 @@ module.exports = {
     });
   },
 
+  swapQueens: function (indices) {
+    AppDispatcher.dispatch({
+      actionType: "SWAP_QUEENS",
+      data: indices
+    });
+  },
+
   runScript: function (scriptName) {
     AppDispatcher.dispatch({
       actionType: "RUN_SCRIPT",
@@ -40,6 +47,13 @@ module.exports = {
   finish: function () {
     AppDispatcher.dispatch({
       actionType: "FINISH"
+    });
+  },
+
+  failure: function (iterations) {
+    AppDispatcher.dispatch({
+      actionType: "FAILURE",
+      data: iterations
     });
   }
 };
