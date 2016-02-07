@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 var ActionCreator = require('../actions/action-creator');
-var MoveQueue = require('../queue/move-queue');
+var ActionQueue = require('../queue/action-queue');
 
 function randomPermutations(size) {
   if (size === 2 || size === 3) return false;
@@ -9,9 +9,9 @@ function randomPermutations(size) {
   for (var i = 0; i < size; i++) board.push(i);
   while (true) {
     fisherYatesShuffle(board);
-    MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
+    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
     if (noDiagConflicts(board)) {
-      MoveQueue.enqueue(ActionCreator.finish);
+      ActionQueue.enqueue(ActionCreator.finish);
       return board;
     }
   }

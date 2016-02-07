@@ -1,12 +1,12 @@
 /*jslint node: true */
 "use strict";
 var ActionCreator = require('../actions/action-creator');
-var MoveQueue = require('../queue/move-queue');
+var ActionQueue = require('../queue/action-queue');
 
 function backtrackingQueens(size) {
   var board = new Array(size);
   var solution = dfs(board, 0, size); // start one queen at a time and satisfy constraints
-  if (solution) MoveQueue.enqueue(ActionCreator.finish);
+  if (solution) ActionQueue.enqueue(ActionCreator.finish);
 }
 
 function dfs(board, currentQueen, size) {
@@ -14,13 +14,13 @@ function dfs(board, currentQueen, size) {
 
   for (var row = 0; row < size; row++) {
     board[currentQueen] = row; // set that queen and check if it's valid
-    MoveQueue.enqueue(ActionCreator.moveQueen.bind(null, currentQueen, row));
+    ActionQueue.enqueue(ActionCreator.moveQueen.bind(null, currentQueen, row));
     if (validPlacement(board, currentQueen)) {
       var done = dfs(board, currentQueen + 1, size); // if it works, go deeper
       if (done) return true;
     }
   }
-  MoveQueue.enqueue(ActionCreator.moveQueen.bind(null, currentQueen, null));
+  ActionQueue.enqueue(ActionCreator.moveQueen.bind(null, currentQueen, null));
 }
 
 function validPlacement(board, currentQueen) {

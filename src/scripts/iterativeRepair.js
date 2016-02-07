@@ -1,11 +1,11 @@
 /*jslint node: true */
 "use strict";
 var ActionCreator = require('../actions/action-creator');
-var MoveQueue = require('../queue/move-queue');
+var ActionQueue = require('../queue/action-queue');
 
 function iterativeRepair(size) {
   var solution = _repairLoop(size);
-  MoveQueue.enqueue(ActionCreator.finish);
+  ActionQueue.enqueue(ActionCreator.finish);
   return solution;
 }
 
@@ -16,7 +16,7 @@ function _repairLoop(size) {
   while (numConflicts > 0) {
     var iterations = 0;
     board = generateRandomBoard(size);
-    MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
+    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
     while (iterations < 30) {
       for (var i = 0; i < board.length; i++) minimizeConflicts(board, i);
       numConflicts = totalConflicts(board);
@@ -46,7 +46,7 @@ function minimizeConflicts(board, col) {
     }
   }
   board[col] = minRow;
-  MoveQueue.enqueue(ActionCreator.moveQueen.bind(null, col, minRow));
+  ActionQueue.enqueue(ActionCreator.moveQueen.bind(null, col, minRow));
 }
 
 function totalConflicts(board) {

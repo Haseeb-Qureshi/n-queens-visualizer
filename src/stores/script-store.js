@@ -3,7 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var Util = require('../utils/util');
 var deferFunc = Util.deferFunc.bind(Util);
-var MoveQueue = require('../queue/move-queue');
+var ActionQueue = require('../queue/action-queue');
 
 
 var script = null;
@@ -21,8 +21,8 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
   },
 
   _runScript: function (scriptName) {
-    MoveQueue.clear();
-    MoveQueue.startQueuing(1);
+    ActionQueue.clear();
+    ActionQueue.startQueuing(1);
     script = require('../scripts/' + this._formatScriptName(scriptName));
     script.run();
   },

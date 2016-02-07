@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 var ActionCreator = require('../actions/action-creator');
-var MoveQueue = require('../queue/move-queue');
+var ActionQueue = require('../queue/action-queue');
 
 var currentBoard,
     coolingFactor,
@@ -42,7 +42,7 @@ function step() {
       var valueDelta = neighborConflicts - numConflicts;
 
       if (probabilityFn(currentTemp, valueDelta)) {
-        MoveQueue.enqueue(ActionCreator.swapQueens.bind(null, neighborSwaps));
+        ActionQueue.enqueue(ActionCreator.swapQueens.bind(null, neighborSwaps));
         currentBoard = neighborBoard;
         currentConflicts = neighborConflicts;
       }
@@ -122,14 +122,14 @@ function swappedBoard(board, indices) {
 function simulatedAnnealing(n) {
   initializeSettings();
   currentBoard = initialBoard(n);
-  MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice()));
+  ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice()));
   var iterations = 0;
   while (currentTemp > freezingTemp) {
     iterations++;
     step();
-    if (currentConflicts === 0) return MoveQueue.enqueue(ActionCreator.finish);
+    if (currentConflicts === 0) return ActionQueue.enqueue(ActionCreator.finish);
   }
-  MoveQueue.enqueue(ActionCreator.failure.bind(null, iterations));
+  ActionQueue.enqueue(ActionCreator.failure.bind(null, iterations));
 }
 
 module.exports = {
