@@ -5,6 +5,31 @@ body {
 button {
   font-family: "Oxygen", sans-serif;
   font-size: 16px;
+  -webkit-border-radius: 9;
+  -moz-border-radius: 9;
+  border-radius: 9px;
+  text-shadow: 1px 1px 4px #666666;
+  box-shadow: 0 4px #27496d;
+  color: #fff;
+  background: #3498db;
+  padding: 8px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+  margin: 2px;
+}
+
+button:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+button:focus {
+  outline: 0;
+}
+
+button:active {
+  box-shadow: 0 2px #27496d;
+  transform: translateY(2px);
 }
 
 .board {
