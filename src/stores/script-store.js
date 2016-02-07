@@ -5,8 +5,8 @@ var Util = require('../utils/util');
 var deferFunc = Util.deferFunc.bind(Util);
 var ActionQueue = require('../queue/action-queue');
 
-
 var script = null;
+var speed = 1;
 var ScriptStore = assign({}, EventEmitter.prototype, {
   emitChange: function () {
     this.emit('change');
@@ -22,9 +22,10 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
 
   _runScript: function (scriptName) {
     ActionQueue.clear();
-    ActionQueue.startQueuing(1);
+    ActionQueue.startQueueing(speed);
     script = require('../scripts/' + this._formatScriptName(scriptName));
     script.run();
+    ScriptStore.emitChange();
   },
 
   _formatScriptName: function (text) {
@@ -36,6 +37,11 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
     }).join("");
   },
 
+  _setSpeed: function (newSpeed) {
+    speed = newSpeed;
+    ActionQueue.changeSpeed(newSpeed);
+  },
+
   getScript: function () {
     return script;
   },
@@ -45,10 +51,9 @@ ScriptStore.dispatchToken = AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "RUN_SCRIPT":
       ScriptStore._runScript(action.scriptName);
-      ScriptStore.emitChange();
       break;
     case "CHANGE_SPEED":
-      console.log(action.newSpeed);
+      ScriptStore._setSpeed(action.newSpeed);
       break;
     default:
   }

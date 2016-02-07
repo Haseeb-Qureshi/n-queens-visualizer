@@ -5,11 +5,11 @@ function enqueue (fn) {
 
 var interval = null;
 
-function startQueuing (time) {
+function startQueueing (speed) {
   interval = setInterval(function () {
     var fn = queue.shift();
     if (fn) setImmediate(fn);
-  }, time || 1);
+  }, speed || 1);
 }
 
 function clearQueueInterval() {
@@ -25,14 +25,18 @@ function clear() {
   clearQueue();
 }
 
+function changeSpeed(speed) {
+  clearQueueInterval();
+  startQueueing(speed);
+}
+
 function enqueue(fn) {
   queue.push(fn);
 }
 
 module.exports = {
   enqueue: enqueue,
-  startQueuing: startQueuing,
-  clearQueueInterval: clearQueueInterval,
-  clearQueue: clearQueue,
-  clear: clear
+  startQueueing: startQueueing,
+  clear: clear,
+  changeSpeed: changeSpeed
 };

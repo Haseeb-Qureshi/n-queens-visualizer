@@ -45,8 +45,10 @@ function minimizeConflicts(board, col) {
       minRow = row;
     }
   }
+  // if (board[col] !== minRow) {
+    ActionQueue.enqueue(ActionCreator.moveQueen.bind(null, col, minRow));
+  // }
   board[col] = minRow;
-  ActionQueue.enqueue(ActionCreator.moveQueen.bind(null, col, minRow));
 }
 
 function totalConflicts(board) {
