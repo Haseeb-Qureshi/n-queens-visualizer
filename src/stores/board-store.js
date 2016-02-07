@@ -2,8 +2,9 @@ var AppDispatcher = require('../dispatcher/app-dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var ScriptStore = require('./script-store');
 var assign = require('object-assign');
-var n = 8;
 
+var n = 8;
+var iterations = 0;
 var board = new Array(n);
 
 var BoardStore = assign({}, EventEmitter.prototype, {
@@ -23,18 +24,25 @@ var BoardStore = assign({}, EventEmitter.prototype, {
     return board;
   },
 
+  getIterations: function () {
+    return iterations;
+  },
+
   _updateBoard: function (newBoard) {
     board = newBoard;
+    iterations += n;
     BoardStore.emitChange();
   },
 
   _moveQueen: function (action) {
     var queenId = action.data[0], toRow = action.data[1];
     board[queenId] = toRow;
+    iterations += 1;
     BoardStore.emitChange();
   },
 
   _resetBoard: function () {
+    iterations = 0;
     board = new Array(n);
   }
 });

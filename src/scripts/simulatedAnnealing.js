@@ -1,10 +1,24 @@
-var currentBoard = initialBoard(8);
-var coolingFactor = 0.05,
-    stabilizingFactor = 1.005,
-    freezingTemp = 0.0,
-    currentTemp = 35.0,
+/*jslint node: true */
+"use strict";
+var ActionCreator = require('../actions/action-creator');
+var MoveQueue = require('../queue/move-queue');
+
+var currentBoard,
+    coolingFactor,
+    stabilizingFactor,
+    freezingTemp,
+    currentTemp,
+    currentConflicts,
+    currentStabilizer;
+
+function initializeSettings() {
+    coolingFactor = 0.25;
+    stabilizingFactor = 1.05;
+    freezingTemp = 0.0;
+    currentTemp = 10.0;
     currentConflicts = Number.POSITIVE_INFINITY;
     currentStabilizer = 35.0;
+}
 
 function probabilityFn(temp, delta) {
   if (delta < 0) return true;
@@ -19,7 +33,8 @@ function probabilityFn(temp, delta) {
 function step() {
   if (currentTemp > freezingTemp) {
     for (var i = 0; i < currentStabilizer; i++) {
-      var neighborBoard = generateNeighbor(currentBoard);
+      var neighborTuple = generateNeighbor(currentBoard);
+      var neighborBoard = neighborTuple[0], neighborSwaps = neighborTuple[1];
       var numConflicts = conflictCount(currentBoard);
       var neighborConflicts = conflictCount(neighborBoard);
 
@@ -28,12 +43,13 @@ function step() {
       if (probabilityFn(currentTemp, valueDelta)) {
         currentBoard = neighborBoard;
         currentConflicts = neighborConflicts;
+        MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice()));
       }
     }
     currentTemp -= coolingFactor;
     currentStabilizer *= stabilizingFactor;
-    console.log("Current temperature: " + currentTemp);
-    console.log("Number of conflicts: " + conflictCount(currentBoard));
+    // console.log("Current temperature: " + currentTemp);
+    // console.log("Number of conflicts: " + conflictCount(currentBoard));
     return false;
   }
   currentTemp = freezingTemp;
@@ -86,7 +102,7 @@ function generateNeighbor(board) {
   while (uniq(indices).length < 2) {
     indices.push(Math.floor(Math.random() * board.length));
   }
-  return swappedBoard(board.slice(), uniq(indices));
+  return [swappedBoard(board.slice(), indices), indices];
 }
 
 function uniq(array) {
@@ -102,13 +118,21 @@ function swappedBoard(board, indices) {
   return board;
 }
 
-function takeSteps() {
-  for (var i = 0; i < 1000; i++) {
+function simulatedAnnealing(n) {
+  initializeSettings();
+  currentBoard = initialBoard(n);
+  MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice()));
+  var iterations = 0;
+  while (currentTemp > freezingTemp + 0.01) {
     step();
-    render(currentBoard);
-    if (currentConflicts === 0) break;
-    console.log("Count: " + i);
+    iterations++;
+    if (currentConflicts === 0) {console.log(iterations); return; }
   }
+  console.log("Failed to find within " + iterations + " iterations.");
 }
 
-takeSteps();
+module.exports = {
+  run: function (n) {
+    simulatedAnnealing(n || 8);
+  }
+};

@@ -6,8 +6,8 @@ var Container = React.createClass({
 
   render: function () {
     var algos = [
-      "Backtracking",
       "Brute force permutations",
+      "Backtracking",
       "Random permutations",
       "Iterative repair",
       "Simulated annealing"
