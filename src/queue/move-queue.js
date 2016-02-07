@@ -12,9 +12,17 @@ function startQueuing (time) {
   }, time || 1);
 }
 
-function clearQueue() {
+function clearQueueInterval() {
   clearInterval(interval);
+}
+
+function clearQueue() {
   queue = [];
+}
+
+function clear() {
+  clearQueueInterval();
+  clearQueue();
 }
 
 function enqueue(fn) {
@@ -24,5 +32,7 @@ function enqueue(fn) {
 module.exports = {
   enqueue: enqueue,
   startQueuing: startQueuing,
-  clearQueue: clearQueue
+  clearQueueInterval: clearQueueInterval,
+  clearQueue: clearQueue,
+  clear: clear
 };
