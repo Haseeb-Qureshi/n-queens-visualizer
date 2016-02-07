@@ -35,18 +35,6 @@ function conflictsWith(board, x1, x2) {
   return y1 === y2 || Math.abs(x2 - x1) === Math.abs(y2 - y1); // row or diags intersect
 }
 
-//
-// function render(board) {
-//   console.log(board);
-//   for (var i = 0; i < board.length; i++) {
-//     var row = [];
-//     for (var j = 0; j < board.length; j++) {
-//       row.push(board[i] === j ? "Q" : ".");
-//     }
-//     console.log(row.join(" "));
-//   }
-// }
-
 module.exports = {
   run: function (n) {
     backtrackingQueens(n || 8);

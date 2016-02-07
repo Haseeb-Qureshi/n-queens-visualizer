@@ -82,17 +82,6 @@ function reverseSlice(arr, idx) {
   return arr.slice(idx, arr.length).reverse();
 }
 
-// function render(board) {
-//   console.log(board);
-//   for (var i = 0; i < board.length; i++) {
-//     var row = [];
-//     for (var j = 0; j < board.length; j++) {
-//       row.push(board[i] === j ? "Q" : ".");
-//     }
-//     console.log(row.join(" "));
-//   }
-// }
-
 module.exports = {
   run: function (n) {
     bruteForcePermutations(n || 8);

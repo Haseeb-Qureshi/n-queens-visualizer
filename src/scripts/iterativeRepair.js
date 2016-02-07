@@ -100,19 +100,6 @@ function fisherYatesShuffle(arr) {
   return arr;
 }
 
-// function render(board) {
-//   console.log(board);
-//   var rows = [];
-//   for (var i = 0; i < board.length; i++) {
-//     var row = [];
-//     for (var j = 0; j < board.length; j++) {
-//       row.push(board[i] === j ? "Q" : ".");
-//     }
-//     rows.push(row);
-//   }
-//   rows.forEach(function (row) { console.log(row.join(" ")); });
-// }
-
 module.exports = {
   run: function (n) {
     iterativeRepair(n || 8);
