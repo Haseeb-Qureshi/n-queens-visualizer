@@ -12,10 +12,10 @@ var AlgoSelector = React.createClass({
   render: function () {
     var buttons = [];
     this.props.algos.forEach(function (algo, i) {
-      buttons.push(<button onClick={this.onClick} key={i}>{algo}</button>)
+      buttons.push(<li key={i}><button onClick={this.onClick}>{algo}</button></li>)
     }.bind(this));
 
-    return <div>{buttons}</div>;
+    return <ul className="buttons">{buttons}</ul>;
   }
 });
 
