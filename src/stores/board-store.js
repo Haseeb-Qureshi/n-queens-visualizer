@@ -70,7 +70,7 @@ BoardStore.dispatchToken = AppDispatcher.register(function (action) {
       BoardStore._swapQueens(action.indices);
       break;
     case "FAILURE":
-      alert("failed after " + action.iterations + " iterations");
+      alert("Failed to converge on a correct solution. Try again.");
       break;
     case "RUN_SCRIPT":
       BoardStore._resetBoard();

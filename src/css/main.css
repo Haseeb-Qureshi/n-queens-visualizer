@@ -1,3 +1,16 @@
+html {
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background: #bbf1f7; /* Old browsers */
+  background: -moz-linear-gradient(top,  #bbf1f7 0%, #effcff 39%, #ffffff 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #bbf1f7 0%,#effcff 39%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #bbf1f7 0%,#effcff 39%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbf1f7', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
 body {
   font-family: 'Oxygen', sans-serif;
 }
