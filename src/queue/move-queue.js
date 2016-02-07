@@ -5,15 +5,16 @@ function enqueue (fn) {
 
 var interval = null;
 
-function startInterval (time) {
+function startQueuing (time) {
   interval = setInterval(function () {
     var fn = queue.shift();
     if (fn) setImmediate(fn);
   }, time || 1);
 }
 
-function wipeInterval() {
+function clearQueue() {
   clearInterval(interval);
+  queue = [];
 }
 
 function enqueue(fn) {
@@ -22,6 +23,6 @@ function enqueue(fn) {
 
 module.exports = {
   enqueue: enqueue,
-  startInterval: startInterval,
-  wipeInterval: wipeInterval
+  startQueuing: startQueuing,
+  clearQueue: clearQueue
 };

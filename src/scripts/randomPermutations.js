@@ -1,11 +1,16 @@
 /*jslint node: true */
 "use strict";
-function bruteForcePermutations(size) {
+
+var ActionCreator = require('../actions/action-creator');
+var MoveQueue = require('../queue/move-queue');
+
+function randomPermutations(size) {
   if (size === 2 || size === 3) return false;
   var board = [];
   for (var i = 0; i < size; i++) board.push(i);
   while (true) {
     fisherYatesShuffle(board);
+    MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board));
     if (noDiagConflicts(board)) return board;
   }
 }
@@ -32,7 +37,6 @@ function noDiagConflicts(board) {
   return true;
 }
 
-
 function fisherYatesShuffle(arr) {
   for (var i = 0; i < arr.length; i++) {
     var j = Math.floor(Math.random() * (arr.length - i) + i);
@@ -46,7 +50,7 @@ function swap(arr, x, y) {
   arr[x] = arr[y];
   arr[y] = temp;
 }
-
+//
 // function render(board) {
 //   console.log(board);
 //   for (var i = 0; i < board.length; i++) {
@@ -58,4 +62,4 @@ function swap(arr, x, y) {
 //   }
 // }
 
-render(bruteForcePermutations(4));
+render(randomPermutations(8));

@@ -23,10 +23,19 @@ var BoardStore = assign({}, EventEmitter.prototype, {
     return board;
   },
 
+  _updateBoard: function (newBoard) {
+    board = newBoard;
+    this.emitChange();
+  },
+
   _moveQueen: function (action) {
     var queenId = action.data[0], toRow = action.data[1];
     board[queenId] = toRow;
     this.emitChange();
+  },
+
+  _resetBoard: function () {
+    board = new Array(n);
   }
 });
 
@@ -36,6 +45,13 @@ BoardStore.dispatchToken = AppDispatcher.register(function (action) {
     case "MOVE_QUEEN":
       AppDispatcher.waitFor([ScriptStore.dispatchToken]);
       BoardStore._moveQueen(action);
+      break;
+    case "UPDATE_BOARD":
+      AppDispatcher.waitFor([ScriptStore.dispatchToken]);
+      BoardStore._updateBoard(action.data);
+      break;
+    case "RUN_SCRIPT":
+      BoardStore._resetBoard();
       break;
     default:
   }

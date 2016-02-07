@@ -9,6 +9,13 @@ module.exports = {
     });
   },
 
+  updateBoard: function (board) {
+    AppDispatcher.dispatch({
+      actionType: "UPDATE_BOARD",
+      data: board
+    });
+  },
+
   iterate: function () {
     AppDispatcher.dispatch({
       actionType: "ITERATE"

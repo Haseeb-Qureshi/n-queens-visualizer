@@ -1,8 +1,6 @@
 /*jslint node: true */
 "use strict";
-
 var ActionCreator = require('../actions/action-creator');
-var AppDispatcher = require('../dispatcher/app-dispatcher');
 var MoveQueue = require('../queue/move-queue');
 
 function backtrackingQueens(size) {
@@ -38,6 +36,7 @@ function conflictsWith(board, x1, x2) {
   var y1 = board[x1], y2 = board[x2];
   return y1 === y2 || Math.abs(x2 - x1) === Math.abs(y2 - y1); // row or diags intersect
 }
+
 //
 // function render(board) {
 //   console.log(board);

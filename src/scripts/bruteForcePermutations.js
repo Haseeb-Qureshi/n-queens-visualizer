@@ -1,10 +1,14 @@
 /*jslint node: true */
 "use strict";
+var ActionCreator = require('../actions/action-creator');
+var MoveQueue = require('../queue/move-queue');
+
 function bruteForcePermutations(size) {
   var board = [];
   for (var i = 0; i < size; i++) board.push(i);
   for (var j = 0; j < factorial(size); j++) {
     board = nextPerm(board);
+    MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board));
     if (noDiagConflicts(board)) return board;
   }
   return false;
@@ -15,6 +19,8 @@ function noDiagConflicts(board) {
   while (downDiags.length < board.length * 2) downDiags.push(false);
   var upDiags = downDiags.slice();
   for (var i = 0; i < board.length; i++) {
+    MoveQueue.enqueue(ActionCreator.iterate);
+
     var downDiag = i - board[i] + (board.length - 1);
     if (!downDiags[downDiag]) {
       downDiags[downDiag] = true;
@@ -75,15 +81,19 @@ function reverseSlice(arr, idx) {
   return arr.slice(idx, arr.length).reverse();
 }
 
-function render(board) {
-  console.log(board);
-  for (var i = 0; i < board.length; i++) {
-    var row = [];
-    for (var j = 0; j < board.length; j++) {
-      row.push(board[i] === j ? "Q" : ".");
-    }
-    console.log(row.join(" "));
-  }
-}
+// function render(board) {
+//   console.log(board);
+//   for (var i = 0; i < board.length; i++) {
+//     var row = [];
+//     for (var j = 0; j < board.length; j++) {
+//       row.push(board[i] === j ? "Q" : ".");
+//     }
+//     console.log(row.join(" "));
+//   }
+// }
 
-render(bruteForcePermutations(4));
+module.exports = {
+  run: function (n) {
+    bruteForcePermutations(n || 8);
+  }
+};

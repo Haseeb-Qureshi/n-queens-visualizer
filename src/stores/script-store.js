@@ -21,8 +21,8 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
   },
 
   _runScript: function (scriptName) {
-    MoveQueue.wipeInterval();
-    MoveQueue.startInterval(1);
+    MoveQueue.clearQueue();
+    MoveQueue.startQueuing(1);
     script = require('../scripts/' + this._formatScriptName(scriptName));
     script.run();
   },
