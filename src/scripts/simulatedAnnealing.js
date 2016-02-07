@@ -50,6 +50,7 @@ function step() {
     }
     currentTemp -= coolingFactor;
     currentStabilizer *= stabilizingFactor;
+    ActionQueue.enqueue(ActionCreator.updateTemp.bind(null, currentTemp));
     // console.log("Current temperature: " + currentTemp);
     // console.log("Number of conflicts: " + conflictCount(currentBoard));
     return false;

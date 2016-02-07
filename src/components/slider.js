@@ -20,7 +20,7 @@ var Slider = React.createClass({
   render: function () {
     return (
       <div className="slider">
-        <RCSlider min={1} max={300} onChange={this.changeSpeed} marks={marks} />
+        <RCSlider defaultValue={125} min={1} max={300} onChange={this.changeSpeed} marks={marks} />
       </div>
     )
   }

@@ -30,6 +30,13 @@ module.exports = {
     });
   },
 
+  updateTemp: function (newTemp) {
+    AppDispatcher.dispatch({
+      actionTyoe: "UPDATE_TEMP",
+      newTemp: newTemp
+    });
+  },
+
   changeSpeed: function (speed) {
     AppDispatcher.dispatch({
       actionType: "CHANGE_SPEED",

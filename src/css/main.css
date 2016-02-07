@@ -7,7 +7,7 @@ body {
 }
 
 div.algo-panel {
-  height: 500px;
+  height: 400px;
   float: left;
 }
 
@@ -49,9 +49,12 @@ ul.buttons {
 }
 
 div.iterations {
-  padding: 40px;
+  padding: 10px 35px;
   font-size: 30px;
-  margin: auto;
+  margin-left: 10%;
+  color: #777;
+  text-align: center;
+  font-family: "Oxygen Mono";
 }
 
 .board {
@@ -67,16 +70,17 @@ div.iterations {
 }
 
 .black {
-  background-color: black;
+  background-color: #0064B5;
 }
 
 .white {
-  background-color: white;
+  background-color: #99D1FF;
 }
 
 .queen {
   font-size: 25px;
-  color: #AAA;
+  color: #fff;
+  text-shadow: 0px 0px 5px #000;
   padding: 10px;
   width: 100%,
   height: 100%,
@@ -90,4 +94,11 @@ div.iterations {
   float: left;
   padding: 30px;
   width: 300px;
+}
+
+div.row {
+  clear: both;
+  float: left;
+  display: block;
+  position: relative;
 }

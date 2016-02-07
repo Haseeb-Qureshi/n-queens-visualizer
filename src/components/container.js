@@ -19,6 +19,7 @@ var Container = React.createClass({
       <div className="container">
         <Board />
         <AlgoPanel algos={algos} />
+        <div className="row"/>
         <Slider />
       </div>
     )

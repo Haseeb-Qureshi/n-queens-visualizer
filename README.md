@@ -10,8 +10,10 @@ Backlog of features:
 * **DONE** Display number of iterations
 * **DONE** Fix iterative repair action overload bug
 * **DONE** Make brute force permutations show exact number of iterations
+* Display temperature for simulated annealing
 * Pause and play buttons
-* Animate movement of queens
 * Highlight attack paths
+* Animate movement of queens
+* Show animations for every reset
 * Show text explaining each search method
 * Guided tour through sequence of possible search strategies
