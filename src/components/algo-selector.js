@@ -2,7 +2,6 @@ var React = require('react');
 var ActionCreator = require('../actions/action-creator');
 var ScriptStore = require('../stores/script-store');
 
-
 var AlgoSelector = React.createClass({
   onClick: function (e) {
     e.preventDefault();

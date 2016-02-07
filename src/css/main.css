@@ -2,6 +2,15 @@ body {
   font-family: 'Oxygen', sans-serif;
 }
 
+#root, #container {
+  overflow: auto;
+}
+
+div.right-panel {
+  height: 500px;
+  float: left;
+}
+
 button {
   font-family: "Oxygen", sans-serif;
   font-size: 16px;
@@ -15,7 +24,7 @@ button {
   padding: 8px 20px 10px 20px;
   text-decoration: none;
   border: none;
-  margin: 4px 2px;
+  margin: 8px 4px;
   width: 14em;
   float: left;
 }
@@ -36,6 +45,7 @@ button:active {
 
 ul.buttons {
   list-style-type: none;
+  overflow: auto;
 }
 
 .board {
@@ -71,6 +81,7 @@ ul.buttons {
 }
 
 .slider {
-  padding: 20px;
+  float: left;
+  padding: 30px;
   width: 300px;
 }
