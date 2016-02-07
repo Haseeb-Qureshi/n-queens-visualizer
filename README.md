@@ -6,6 +6,7 @@ Todo-list of features:
 * **DONE** Number queens
 * **DONE** Implement all methods (backtracking, brute-force permutations, random permutations, simulated annealing, and iterative repair)
 * **DONE** Speed bar
+* **DONE** Smooth out speed modulation
 * Fix iterative repair action overload bug
 * Display number of iterations
 * Animate movement of queens

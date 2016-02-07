@@ -7,19 +7,20 @@ var marks = {
   50: "50 ms",
   100: "100 ms",
   150: "150 ms",
-  200: "200 ms"
+  200: "200 ms",
+  250: "250 ms",
+  300: "300 ms",
 };
 
 var Slider = React.createClass({
   changeSpeed: function (newSpeed) {
-    newSpeed = newSpeed *= 2;
     ActionCreator.changeSpeed(newSpeed);
   },
 
   render: function () {
     return (
       <div className="slider">
-        <RCSlider min={1} max={200} onChange={this.changeSpeed} marks={marks} />
+        <RCSlider min={1} max={300} onChange={this.changeSpeed} marks={marks} />
       </div>
     )
   }

@@ -1,32 +1,36 @@
 var queue = [];
-function enqueue (fn) {
+var interval = null;
+
+function enqueue(fn) {
   queue.push(fn);
 }
 
-var interval = null;
+function processQueue() {
+  var fn = queue.shift();
+  if (fn) setImmediate(fn);
+}
 
-function startQueueing (speed) {
-  interval = setInterval(function () {
-    var fn = queue.shift();
-    if (fn) setImmediate(fn);
-  }, speed || 1);
+function startQueueing(speed) {
+  interval = setInterval(processQueue, speed);
 }
 
 function clearQueueInterval() {
   clearInterval(interval);
-}
-
-function clearQueue() {
-  queue = [];
+  interval = null;
 }
 
 function clear() {
   clearQueueInterval();
-  clearQueue();
+  queue = [];
+}
+
+function easingFn(speed) {
+  return Math.pow(Math.random(), 2) * 400 > speed;
 }
 
 function changeSpeed(speed) {
   clearQueueInterval();
+  if (easingFn(speed)) processQueue();
   startQueueing(speed);
 }
 
