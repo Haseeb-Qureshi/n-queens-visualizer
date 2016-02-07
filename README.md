@@ -8,8 +8,8 @@ Backlog of features:
 * **DONE** Speed bar
 * **DONE** Smooth out speed modulation
 * **DONE** Display number of iterations
-* Fix iterative repair action overload bug
-* Make brute force permutations show exact number of iterations
+* **DONE** Fix iterative repair action overload bug
+* **DONE** Make brute force permutations show exact number of iterations
 * Pause and play buttons
 * Animate movement of queens
 * Highlight attack paths

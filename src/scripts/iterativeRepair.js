@@ -36,6 +36,7 @@ function generateRandomBoard(size) {
 
 function minimizeConflicts(board, col) {
   var minConflicts = Number.POSITIVE_INFINITY;
+  var originalRow = board[col];
   var minRow;
   for (var row = 0; row < board.length; row++) {
     board[col] = row;
@@ -45,9 +46,9 @@ function minimizeConflicts(board, col) {
       minRow = row;
     }
   }
-  // if (board[col] !== minRow) {
+  if (originalRow !== minRow) {
     ActionQueue.enqueue(ActionCreator.moveQueen.bind(null, col, minRow));
-  // }
+  }
   board[col] = minRow;
 }
 
