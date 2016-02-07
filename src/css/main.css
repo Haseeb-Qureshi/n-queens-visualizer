@@ -6,7 +6,7 @@ body {
   overflow: auto;
 }
 
-div.right-panel {
+div.algo-panel {
   height: 500px;
   float: left;
 }
@@ -45,7 +45,7 @@ button:active {
 
 ul.buttons {
   list-style-type: none;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .board {

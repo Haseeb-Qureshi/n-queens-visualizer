@@ -1,16 +1,18 @@
 var React = require('react');
 var ActionCreator = require('../actions/action-creator');
 var ScriptStore = require('../stores/script-store');
-var AlgoSelector = require('./algo-selector');
+var AlgoSelector = require('./algos/algo-selector');
+var IterationsDisplay = require('./algos/iterations-display');
 
-var AlgoInfo = React.createClass({
+var AlgoPanel = React.createClass({
   render: function () {
     return (
-      <div className="right-panel">
+      <div className="algo-panel">
         <AlgoSelector algos={this.props.algos} />
+        <IterationsDisplay />
       </div>
     )
   }
 });
 
-module.exports = AlgoInfo;
+module.exports = AlgoPanel;

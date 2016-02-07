@@ -2,7 +2,7 @@ require('rc-slider/assets/index.css');
 
 var React = require('react');
 var Board = require('./board');
-var AlgoInfo = require('./algo-info');
+var AlgoPanel = require('./algo-panel');
 var Slider = require('./slider');
 
 var algos = [
@@ -18,7 +18,7 @@ var Container = React.createClass({
     return (
       <div className="container">
         <Board />
-        <AlgoInfo algos={algos} />
+        <AlgoPanel algos={algos} />
         <Slider />
       </div>
     )

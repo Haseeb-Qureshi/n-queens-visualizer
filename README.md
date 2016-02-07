@@ -7,8 +7,8 @@ Todo-list of features:
 * **DONE** Implement all methods (backtracking, brute-force permutations, random permutations, simulated annealing, and iterative repair)
 * **DONE** Speed bar
 * **DONE** Smooth out speed modulation
-* Fix iterative repair action overload bug
 * Display number of iterations
+* Fix iterative repair action overload bug
 * Animate movement of queens
 * Highlight attack paths
 * Show text explaining each search method

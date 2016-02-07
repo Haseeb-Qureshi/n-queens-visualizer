@@ -1,8 +1,8 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var BoardStore = require('../stores/board-store');
-var EmptySquare = require('./empty-square');
-var QueenSquare = require('./queen-square');
+var EmptySquare = require('./board/empty-square');
+var QueenSquare = require('./board/queen-square');
 
 function getBoardState() {
   return {
