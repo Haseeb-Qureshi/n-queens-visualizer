@@ -16,7 +16,7 @@ function _repairLoop(size) {
   while (numConflicts > 0) {
     var iterations = 0;
     board = generateRandomBoard(size);
-    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
+    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice(), size));
     while (iterations < 30) {
       for (var i = 0; i < board.length; i++) minimizeConflicts(board, i);
       numConflicts = totalConflicts(board);

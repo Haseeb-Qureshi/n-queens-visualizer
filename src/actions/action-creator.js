@@ -9,10 +9,10 @@ module.exports = {
     });
   },
 
-  updateBoard: function (board) {
+  updateBoard: function (board, numChanges) {
     AppDispatcher.dispatch({
       actionType: "UPDATE_BOARD",
-      newBoard: board
+      data: [board, numChanges]
     });
   },
 

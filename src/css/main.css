@@ -48,6 +48,12 @@ ul.buttons {
   overflow: hidden;
 }
 
+div.iterations {
+  padding: 40px;
+  font-size: 30px;
+  margin: auto;
+}
+
 .board {
   width: 400px;
   height: 400px;

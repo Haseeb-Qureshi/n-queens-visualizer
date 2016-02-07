@@ -24,7 +24,7 @@ var IterationsDisplay = React.createClass({
 
   render: function () {
     return (
-      <div className="iterations">{this.state.iterations}</div>
+      <div className="iterations">Iterations: {this.state.iterations}</div>
     )
   }
 });

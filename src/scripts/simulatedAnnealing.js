@@ -33,9 +33,10 @@ function probabilityFn(temp, delta) {
 function step() {
   if (currentTemp > freezingTemp) {
     for (var i = 0; i < currentStabilizer; i++) {
-      var neighborTuple = generateNeighbor(currentBoard);
+      var neighborData = generateNeighbor(currentBoard);
 
-      var neighborBoard = neighborTuple[0], neighborSwaps = neighborTuple[1];
+      var neighborBoard = neighborData.neighborBoard;
+      var neighborSwaps = neighborData.indices;
       var numConflicts = conflictCount(currentBoard);
       var neighborConflicts = conflictCount(neighborBoard);
 
@@ -103,7 +104,11 @@ function generateNeighbor(board) {
   while (uniq(indices).length < 2) {
     indices.push(Math.floor(Math.random() * board.length));
   }
-  return [swappedBoard(board.slice(), indices), indices];
+
+  return {
+    neighborBoard: swappedBoard(board.slice(), indices),
+    indices: indices
+  };
 }
 
 function uniq(array) {
@@ -122,7 +127,7 @@ function swappedBoard(board, indices) {
 function simulatedAnnealing(n) {
   initializeSettings();
   currentBoard = initialBoard(n);
-  ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice()));
+  ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, currentBoard.slice(), n));
   var iterations = 0;
   while (currentTemp > freezingTemp) {
     iterations++;

@@ -9,7 +9,7 @@ function randomPermutations(size) {
   for (var i = 0; i < size; i++) board.push(i);
   while (true) {
     fisherYatesShuffle(board);
-    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
+    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice(), size));
     if (noDiagConflicts(board)) {
       ActionQueue.enqueue(ActionCreator.finish);
       return board;

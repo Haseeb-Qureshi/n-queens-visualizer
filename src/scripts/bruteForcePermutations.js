@@ -4,11 +4,13 @@ var ActionCreator = require('../actions/action-creator');
 var ActionQueue = require('../queue/action-queue');
 
 function bruteForcePermutations(size) {
-  var board = [];
+  var board = [], permData, numChanges;
   for (var i = 0; i < size; i++) board.push(i);
   for (var j = 0; j < factorial(size); j++) {
-    board = nextPerm(board);
-    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board));
+    permData = nextPerm(board);
+    board = permData.perm;
+    numChanges = permData.numChanges;
+    ActionQueue.enqueue(ActionCreator.updateBoard.bind(null, board, numChanges));
     if (noDiagConflicts(board)) {
       ActionQueue.enqueue(ActionCreator.finish);
       return board;
@@ -52,7 +54,10 @@ function nextPerm(perm) {
 
   perm = perm.slice();
   swap(perm, swap1, swap2);
-  return perm.slice(0, swap1 + 1).concat(reverseSlice(perm, swap1 + 1));
+  return {
+    perm: perm.slice(0, swap1 + 1).concat(reverseSlice(perm, swap1 + 1)),
+    numChanges: perm.length - swap1
+  };
 }
 
 function swapPoint(arr) {

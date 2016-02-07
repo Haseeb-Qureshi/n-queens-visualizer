@@ -28,9 +28,10 @@ var BoardStore = assign({}, EventEmitter.prototype, {
     return iterations;
   },
 
-  _updateBoard: function (newBoard) {
+  _updateBoard: function (data) {
+    var newBoard = data[0], numChanges = data[1];
     board = newBoard;
-    iterations += n;
+    iterations += numChanges;
     BoardStore.emitChange();
   },
 
@@ -54,7 +55,6 @@ var BoardStore = assign({}, EventEmitter.prototype, {
   }
 });
 
-
 BoardStore.dispatchToken = AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "MOVE_QUEEN":
@@ -63,7 +63,7 @@ BoardStore.dispatchToken = AppDispatcher.register(function (action) {
       break;
     case "UPDATE_BOARD":
       AppDispatcher.waitFor([ScriptStore.dispatchToken]);
-      BoardStore._updateBoard(action.newBoard);
+      BoardStore._updateBoard(action.data);
       break;
     case "SWAP_QUEENS":
       AppDispatcher.waitFor([ScriptStore.dispatchToken]);
@@ -79,5 +79,4 @@ BoardStore.dispatchToken = AppDispatcher.register(function (action) {
   }
 });
 
-window.boardstore = BoardStore;
 module.exports = BoardStore;
