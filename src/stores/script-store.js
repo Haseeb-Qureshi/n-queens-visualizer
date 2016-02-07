@@ -1,6 +1,5 @@
 var AppDispatcher = require('../dispatcher/app-dispatcher');
 var EventEmitter = require('events').EventEmitter;
-var BoardStore = require('./board-store');
 var assign = require('object-assign');
 var Util = require('../utils/util');
 var deferFunc = Util.deferFunc.bind(Util);
@@ -21,7 +20,7 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
 
   _runScript: function (scriptName) {
     script = require('../scripts/' + this._formatScriptName(scriptName));
-    deferFunc(script.run);
+    script.run();
   },
 
   _formatScriptName: function (text) {
@@ -41,7 +40,6 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
 ScriptStore.dispatchToken = AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "RUN_SCRIPT":
-      AppDispatcher.waitFor([BoardStore.dispatchToken]);
       ScriptStore._runScript(action.scriptName);
       ScriptStore.emitChange();
       break;

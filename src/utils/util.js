@@ -1,9 +1,10 @@
 var AppDispatcher = require('../dispatcher/app-dispatcher');
 
 module.exports = {
-  deferFunc: function (func) {
-    if (AppDispatcher.isDispatching()) {
-      setTimeout(this.deferFunc.bind(null, func), 50);
+  deferFunc: function (condition, func, timeOut) {
+    timeOut = timeOut || 50;
+    if (condition()) {
+      setTimeout(this.deferFunc.bind(null, condition, func, timeOut), timeOut);
     } else {
       func();
     }

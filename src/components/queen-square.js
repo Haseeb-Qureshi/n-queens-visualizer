@@ -12,7 +12,7 @@ var QueenSquare = React.createClass({
     return (
       <div className={"square " + fill}>
         <div className="queen">
-          ♕<small>{this.props.queenId}</small>
+          ♕<small>{this.props.queenId + 1}</small>
         </div>
       </div>
     )

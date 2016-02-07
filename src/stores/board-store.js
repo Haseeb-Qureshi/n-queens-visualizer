@@ -1,8 +1,7 @@
 var AppDispatcher = require('../dispatcher/app-dispatcher');
-
 var EventEmitter = require('events').EventEmitter;
+var ScriptStore = require('./script-store');
 var assign = require('object-assign');
-
 var n = 8;
 
 var board = new Array(n);
@@ -35,10 +34,12 @@ var BoardStore = assign({}, EventEmitter.prototype, {
 BoardStore.dispatchToken = AppDispatcher.register(function (action) {
   switch (action.actionType) {
     case "MOVE_QUEEN":
+      AppDispatcher.waitFor([ScriptStore.dispatchToken]);
       BoardStore._moveQueen(action);
       break;
     default:
   }
 });
 
+window.boardstore = BoardStore;
 module.exports = BoardStore;

@@ -16,8 +16,6 @@ function sleep(delay) {
 }
 
 var Board = React.createClass({
-  counter: 0,
-
   onChange: function () {
     this.setState(getBoardState());
   },
@@ -32,11 +30,6 @@ var Board = React.createClass({
 
   componentWillUnmount: function () {
     BoardStore.removeChangeListener(this.onChange);
-  },
-
-  componentWillUpdate: function () {
-    this.counter += 1;
-    console.log("hello");
   },
 
   renderSquare: function (i) {
