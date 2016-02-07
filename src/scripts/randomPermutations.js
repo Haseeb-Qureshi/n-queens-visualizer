@@ -1,6 +1,5 @@
 /*jslint node: true */
 "use strict";
-
 var ActionCreator = require('../actions/action-creator');
 var MoveQueue = require('../queue/move-queue');
 
@@ -10,7 +9,7 @@ function randomPermutations(size) {
   for (var i = 0; i < size; i++) board.push(i);
   while (true) {
     fisherYatesShuffle(board);
-    MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board));
+    MoveQueue.enqueue(ActionCreator.updateBoard.bind(null, board.slice()));
     if (noDiagConflicts(board)) return board;
   }
 }
@@ -20,6 +19,8 @@ function noDiagConflicts(board) {
   while (downDiags.length < board.length * 2) downDiags.push(false);
   var upDiags = downDiags.slice();
   for (var i = 0; i < board.length; i++) {
+    MoveQueue.enqueue(ActionCreator.iterate);
+
     var downDiag = i - board[i] + (board.length - 1);
     if (!downDiags[downDiag]) {
       downDiags[downDiag] = true;
@@ -62,4 +63,8 @@ function swap(arr, x, y) {
 //   }
 // }
 
-render(randomPermutations(8));
+module.exports = {
+  run: function (n) {
+    randomPermutations(n || 8);
+  }
+};

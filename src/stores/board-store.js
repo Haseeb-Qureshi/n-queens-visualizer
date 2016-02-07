@@ -25,13 +25,13 @@ var BoardStore = assign({}, EventEmitter.prototype, {
 
   _updateBoard: function (newBoard) {
     board = newBoard;
-    this.emitChange();
+    BoardStore.emitChange();
   },
 
   _moveQueen: function (action) {
     var queenId = action.data[0], toRow = action.data[1];
     board[queenId] = toRow;
-    this.emitChange();
+    BoardStore.emitChange();
   },
 
   _resetBoard: function () {
