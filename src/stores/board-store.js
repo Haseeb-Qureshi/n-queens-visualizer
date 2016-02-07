@@ -62,14 +62,14 @@ BoardStore.dispatchToken = AppDispatcher.register(function (action) {
       break;
     case "UPDATE_BOARD":
       AppDispatcher.waitFor([ScriptStore.dispatchToken]);
-      BoardStore._updateBoard(action.data);
+      BoardStore._updateBoard(action.newBoard);
       break;
     case "SWAP_QUEENS":
       AppDispatcher.waitFor([ScriptStore.dispatchToken]);
-      BoardStore._swapQueens(action.data);
+      BoardStore._swapQueens(action.indices);
       break;
     case "FAILURE":
-      console.log("failed after " + action.data + " iterations");
+      alert("failed after " + action.iterations + " iterations");
       break;
     case "RUN_SCRIPT":
       BoardStore._resetBoard();

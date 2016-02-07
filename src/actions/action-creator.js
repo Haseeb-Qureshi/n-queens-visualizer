@@ -12,14 +12,14 @@ module.exports = {
   updateBoard: function (board) {
     AppDispatcher.dispatch({
       actionType: "UPDATE_BOARD",
-      data: board
+      newBoard: board
     });
   },
 
   swapQueens: function (indices) {
     AppDispatcher.dispatch({
       actionType: "SWAP_QUEENS",
-      data: indices
+      indices: indices
     });
   },
 
@@ -53,7 +53,7 @@ module.exports = {
   failure: function (iterations) {
     AppDispatcher.dispatch({
       actionType: "FAILURE",
-      data: iterations
+      iterations: iterations
     });
   }
 };

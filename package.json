@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/haseeb-qureshi/n-queens"
+    "url": "https://github.com/haseeb-qureshi/n-queens-visualizer"
   },
   "keywords": [
     "react",
@@ -35,9 +35,12 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "css-loader": "^0.23.1",
+    "flux": "^2.0.0",
+    "object-assign": "^1.0.0",
+    "rc-slider": "^3.3.2",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "flux": "^2.0.0",
-    "object-assign": "^1.0.0"
+    "style-loader": "^0.13.0"
   }
 }

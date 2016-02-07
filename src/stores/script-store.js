@@ -47,6 +47,9 @@ ScriptStore.dispatchToken = AppDispatcher.register(function (action) {
       ScriptStore._runScript(action.scriptName);
       ScriptStore.emitChange();
       break;
+    case "CHANGE_SPEED":
+      console.log(action.newSpeed);
+      break;
     default:
   }
 });

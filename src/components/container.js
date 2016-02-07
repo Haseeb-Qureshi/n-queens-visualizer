@@ -1,6 +1,10 @@
+require('rc-slider/assets/index.css');
+
 var React = require('react');
 var Board = require('./board');
 var AlgoSelector = require('./algo-selector');
+var Slider = require('rc-slider');
+var SliderProps = require('./slider');
 
 var Container = React.createClass({
 
@@ -17,6 +21,9 @@ var Container = React.createClass({
       <div className="container">
         <Board />
         <AlgoSelector algos={algos} />
+        <Slider min={SliderProps.min}
+                onChange={SliderProps.onChange}
+                marks={SliderProps.marks} />
       </div>
     )
   }
