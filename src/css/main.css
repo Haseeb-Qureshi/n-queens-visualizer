@@ -17,6 +17,25 @@ body {
 
 #root, #container {
   overflow: auto;
+  margin-left: 15px;
+}
+
+h1.title {
+  margin: 30px 30px 30px 110px;
+  color: #3cb0fd;
+  font-size: 48px;
+  text-shadow: 1px 1px 1px #000;
+}
+
+h2.attribution {
+  font-size: 18px;
+  margin: -20px 0px 20px 113px;
+  text-decoration: italicize;
+}
+
+a {
+  text-decoration: none;
+  color: #4cc0ff;
 }
 
 div.algo-panel {
