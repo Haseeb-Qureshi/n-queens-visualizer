@@ -21,7 +21,10 @@ Backlog of features:
 * **DONE** Make brute force permutations show exact number of iterations
 * **DONE** Display temperature for simulated annealing
 * **DONE** Colorize temperature
+* Make algorithm selection immediately seed board
+* Slow down slowest speed
 * Pause and play buttons
+* Optimize parameters for simulated annealing (currently resolves 68% of the time)
 * Highlight attack paths
 * Animate movement of queens
 * Show animations for every reset
