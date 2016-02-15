@@ -4,23 +4,35 @@ var RCSlider = require('rc-slider');
 
 var marks = {
   1: "1 ms",
-  50: "50 ms",
   100: "100 ms",
-  150: "150 ms",
   200: "200 ms",
-  250: "250 ms",
   300: "300 ms",
+  400: "400 ms",
+  500: "500 ms"
 };
 
 var Slider = React.createClass({
+  modulateSpeed: function (newSpeed) {
+    console.log("modulate!")
+    ActionCreator.modulateSpeed(newSpeed);
+  },
+
   changeSpeed: function (newSpeed) {
+    console.log("change!")
     ActionCreator.changeSpeed(newSpeed);
   },
 
   render: function () {
     return (
       <div className="slider">
-        <RCSlider defaultValue={125} min={1} max={300} onChange={this.changeSpeed} marks={marks} />
+        <RCSlider
+          defaultValue={125}
+          min={1}
+          max={500}
+          onChange={this.modulateSpeed}
+          onAfterChange={this.changeSpeed}
+          marks={marks}
+        />
       </div>
     )
   }

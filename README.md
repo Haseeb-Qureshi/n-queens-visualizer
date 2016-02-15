@@ -22,7 +22,8 @@ Backlog of features:
 * **DONE** Display temperature for simulated annealing
 * **DONE** Colorize temperature
 * **DONE** Make algorithm selection immediately seed board
-* Slow down slowest speed
+* **DONE** Slow down slowest speed
+* **DONE** Replace easing function with correct speed modulation using dynamic intervals
 * Pause and play buttons
 * Optimize parameters for simulated annealing (currently resolves 68% of the time)
 * Asterisk; mouseover iterations displays: number queens swapped, not total computations

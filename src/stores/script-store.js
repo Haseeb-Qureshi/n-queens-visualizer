@@ -68,6 +68,10 @@ ScriptStore.dispatchToken = AppDispatcher.register(function (action) {
     case "CHANGE_SPEED":
       ScriptStore._setSpeed(action.newSpeed);
       break;
+    case "MODULATE_SPEED":
+      ActionQueue.clearQueueInterval();
+      ActionQueue.modulateSpeed(action.newSpeed);
+      break;
     case "UPDATE_TEMP":
       ScriptStore._setTemp(action.newTemp);
       break;
