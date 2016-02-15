@@ -37,6 +37,13 @@ module.exports = {
     });
   },
 
+  modulateSpeed: function (speed) {
+    AppDispatcher.dispatch({
+      actionType: "MODULATE_SPEED",
+      newSpeed: speed
+    });
+  },
+
   changeSpeed: function (speed) {
     AppDispatcher.dispatch({
       actionType: "CHANGE_SPEED",
