@@ -12,6 +12,7 @@ function processQueue() {
 
 function startQueueing(speed) {
   interval = setInterval(processQueue, speed);
+  processQueue();
 }
 
 function clearQueueInterval() {

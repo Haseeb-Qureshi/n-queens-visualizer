@@ -25,11 +25,11 @@ var ScriptStore = assign({}, EventEmitter.prototype, {
 
   _runScript: function (scriptName) {
     ActionQueue.clear();
-    ActionQueue.startQueueing(speed);
     lastScriptName = scriptName;
     ScriptStore.emitChange();
     script = require('../scripts/' + this._formatScriptName(scriptName));
     script.run();
+    ActionQueue.startQueueing(speed);
   },
 
   _formatScriptName: function (text) {
